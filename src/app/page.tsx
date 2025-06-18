@@ -1,4 +1,11 @@
 import Image from "next/image";
+import 'react-multi-carousel/lib/styles.css';
+import React from 'react';
+import Drawer from 'react-modern-drawer';
+import 'react-modern-drawer/dist/index.css';
+import { FaBeer } from "react-icons/fa"; // Example: Font Awesome icon
+import { MdSettings } from "react-icons/md"; // Example: Material Design icon
+import Swal from 'sweetalert2';
 
 export default function Home() {
   return (
