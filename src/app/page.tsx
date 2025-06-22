@@ -133,13 +133,7 @@ export default function Home() {
           </div>
         </section>
         <ClientSection />
-        <section className="p-8 bg-gray-100">
-          <h2 className="text-2xl font-bold mb-4">Newsletter</h2>
-          <div className="flex max-w-md mx-auto">
-            <Input type="text" name="email" />
-            <Button variant="primary">Subscribe</Button>
-          </div>
-        </section>
+
         <section className="p-8">
           <h2 className="text-2xl font-bold mb-4">Account</h2>
           <ReduxProviderWrapper>

@@ -4,6 +4,7 @@ import { useGetProductsQuery } from "../../../store/services/productsApi";
 import { ProductCard } from "../../../components/ProductCard";
 import { ReduxProviderWrapper } from "../../../components/ReduxProviderWrapper";
 import { useSearchParams } from "next/navigation";
+import { Navbar } from "../../../components/Navbar";
 
 export default function ProductsPage() {
   const { data: products = [], isLoading, error } = useGetProductsQuery();
@@ -17,7 +18,8 @@ export default function ProductsPage() {
   return (
     <ReduxProviderWrapper>
       <div className="p-8">
-        <h1 className="text-3xl font-bold mb-6">All Products</h1>
+        <Navbar />
+        <h1 className="mt-4 text-3xl font-bold mb-6">All Products</h1>
         {isLoading && <p>Loading products...</p>}
         {error && <p className="text-red-500">Failed to load products</p>}
         {!isLoading && !error && (

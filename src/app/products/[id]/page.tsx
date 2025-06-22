@@ -1,8 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 // src/app/products/[id]/page.tsx
 "use client";
 import { useGetProductByIdQuery } from "../../../../store/services/productsApi";
 import { ReduxProviderWrapper } from "../../../../components/ReduxProviderWrapper";
 import { useParams } from "next/navigation";
+import { Navbar } from "../../../../components/Navbar";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -11,6 +13,7 @@ export default function ProductDetailPage() {
 
   return (
     <ReduxProviderWrapper>
+      <Navbar />
       <div className="p-8 max-w-4xl mx-auto">
         {isLoading && <p>Loading product details...</p>}
         {error && (

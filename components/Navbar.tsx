@@ -31,12 +31,6 @@ export const Navbar = () => {
             >
               Clothing
             </Link>
-            <Link
-              href="/products?category=home"
-              className="block py-1 hover:text-blue-600"
-            >
-              Home
-            </Link>
           </div>
         </div>
         <Link href="/products" className="hover:text-blue-600">
