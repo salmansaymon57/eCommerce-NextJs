@@ -1,81 +1,52 @@
-// app/cart/page.tsx
+// src/app/cart/page.tsx
 "use client";
 import { Navbar } from "../../../components/Navbar";
 import { Footer } from "../../../components/Footer";
 import { Button } from "../../../components/Button";
-import { Input } from "../../../components/Input";
-import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { useRouter } from "next/navigation";
 
-const mockCart = [
-  {
-    id: "1",
-    image: "/img1.jpg",
-    name: "Nike Air Zoom",
-    variant: "M/Black",
-    quantity: 1,
-  },
-];
+const Cart = () => {
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const router = useRouter();
 
-export default function Cart() {
+  const totalCartPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow p-8 md:flex">
-        <div className="md:w-2/3">
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Variant</th>
-                <th>Quantity</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mockCart.map((item) => (
-                <tr key={item.id}>
-                  <td>
-                    {/* <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-16 h-16 object-cover"
-                    /> */}
-                    {item.name}
-                  </td>
-                  <td>{item.variant}</td>
-                  <td>
-                    <Input
-                      type="text"
-                      name="quantity"
-                      value={item.quantity.toString()}
-                    />
-                  </td>
-                  <td>
-                    <Button variant="secondary">Remove</Button>
-                  </td>
-                </tr>
+      <main className="flex-grow p-8">
+        <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
+        {cartItems.length > 0 ? (
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              {cartItems.map((item) => (
+                <div key={item.id} className="flex justify-between mb-4">
+                  <span>
+                    {item.name} (x{item.quantity})
+                  </span>
+                  <span>${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="md:w-1/3 md:pl-8 mt-4 md:mt-0">
-          <div className="border p-4">
-            <h4 className="font-bold">Summary</h4>
-            <p>Subtotal: $90</p>
-            <p>Taxes: $5</p>
-            <p>Shipping: $10</p>
-            <Input type="text" name="promo" />
-            <Link href="/checkout">
-              <Button variant="primary">Proceed to Checkout</Button>
-            </Link>
-
-            <Link href="/products">
-              <Button variant="secondary">Continue Shopping</Button>
-            </Link>
+              <div className="mt-4 font-bold text-right">
+                Total: ${totalCartPrice.toFixed(2)}
+              </div>
+            </div>
+            <Button variant="primary" onClick={() => router.push("/checkout")}>
+              Proceed to Checkout
+            </Button>
           </div>
-        </div>
+        ) : (
+          <p className="text-gray-500">Your cart is empty.</p>
+        )}
       </main>
       <Footer />
     </div>
   );
-}
+};
+
+export default Cart;
