@@ -110,30 +110,19 @@ export default function Home() {
             Featured Categories
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <a
-              href="/products?category=electronics"
-              className="bg-gray-200 p-4 text-center"
-            >
+            <Link href="/" className="bg-gray-200 p-4 text-center">
               Electronics
-            </a>
-            <a
-              href="/products?category=clothing"
-              className="bg-gray-200 p-4 text-center"
-            >
+            </Link>
+
+            <Link href="/" className="bg-gray-200 p-4 text-center">
               Clothing
-            </a>
-            <a
-              href="/products?category=home"
-              className="bg-gray-200 p-4 text-center"
-            >
+            </Link>
+            <Link href="/" className="bg-gray-200 p-4 text-center">
               Home
-            </a>
-            <a
-              href="/products?category=footwear"
-              className="bg-gray-200 p-4 text-center"
-            >
+            </Link>
+            <Link href="/products" className="bg-gray-200 p-4 text-center">
               Footwear
-            </a>
+            </Link>
           </div>
         </section>
         <ClientSection />
