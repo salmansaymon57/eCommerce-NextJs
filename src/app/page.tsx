@@ -104,7 +104,9 @@ export default function Home() {
           </div>
         </section>
         <section className="p-8">
-          <h2 className="text-2xl font-bold mb-4">Featured Categories</h2>
+          <h2 className="animate-pulse text-2xl font-bold mb-4">
+            Featured Categories
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <a
               href="/products?category=electronics"

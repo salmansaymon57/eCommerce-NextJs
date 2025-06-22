@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // components/ProductCard.tsx
 "use client";
 import Link from "next/link";
@@ -32,14 +33,16 @@ export const ProductCard = ({
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
+    const variant =
+      variants && variants.length > 0
+        ? { size: variants[0].size, color: variants[0].color }
+        : undefined;
     dispatch(
       addToCart({
         id,
         name,
         image,
-        variant: variants?.[0]
-          ? `${variants[0].size}/${variants[0].color}`
-          : "Default",
+        variant,
         quantity: 1,
         price: discountPrice || price,
       })
@@ -48,9 +51,9 @@ export const ProductCard = ({
   };
 
   return (
-    <div className="border border-gray-200 rounded-xl p-4 bg-white shadow-md hover:shadow-xl transition-all duration-300">
+    <div className="border mx-4 border-gray-200 rounded-xl p-4 bg-white shadow-md hover:shadow-xl transition-all duration-300">
       {isSale && (
-        <span className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs font-semibold rounded-full">
+        <span className="absolute z-100 top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs font-semibold rounded-full">
           Sale
         </span>
       )}

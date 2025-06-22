@@ -5,11 +5,37 @@ import { useGetProductByIdQuery } from "../../../../store/services/productsApi";
 import { ReduxProviderWrapper } from "../../../../components/ReduxProviderWrapper";
 import { useParams } from "next/navigation";
 import { Navbar } from "../../../../components/Navbar";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../../store/cartSlice";
+import { useState } from "react";
+import { Button } from "../../../../components/Button";
 
 export default function ProductDetailPage() {
   const params = useParams();
   const { id } = params as { id: string };
   const { data: product, isLoading, error } = useGetProductByIdQuery(id);
+  const dispatch = useDispatch();
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0); // Default to first variant
+
+  const handleAddToCart = () => {
+    if (product && product.variants[selectedVariantIndex].stock > 0) {
+      dispatch(
+        addToCart({
+          id: product.id,
+          name: product.title,
+          price: product.discountPrice || product.price,
+          quantity: 1,
+          variant: {
+            size: product.variants[selectedVariantIndex].size,
+            color: product.variants[selectedVariantIndex].color,
+          },
+        })
+      );
+      alert(`${product.title} added to cart!`);
+    } else {
+      alert("Selected variant is out of stock.");
+    }
+  };
 
   return (
     <ReduxProviderWrapper>
@@ -44,14 +70,27 @@ export default function ProductDetailPage() {
               </p>
               <p className="mb-4">{product.description}</p>
               <h3 className="text-xl font-semibold mb-2">Variants:</h3>
-              <ul className="list-disc pl-5 mb-4">
+              <select
+                value={selectedVariantIndex}
+                onChange={(e) =>
+                  setSelectedVariantIndex(Number(e.target.value))
+                }
+                className="w-full p-2 border rounded mb-4"
+              >
                 {product.variants.map((variant, index) => (
-                  <li key={index}>
+                  <option
+                    key={index}
+                    value={index}
+                    disabled={variant.stock === 0}
+                  >
                     Size: {variant.size}, Color: {variant.color}, Stock:{" "}
                     {variant.stock}
-                  </li>
+                  </option>
                 ))}
-              </ul>
+              </select>
+              <Button variant="primary" onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
               {product.isSale && <p className="text-green-600">On Sale!</p>}
               {product.isNew && <p className="text-blue-600">New Arrival!</p>}
             </div>

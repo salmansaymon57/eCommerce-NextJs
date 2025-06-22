@@ -15,7 +15,9 @@ export const TrendingProducts = () => {
 
   return (
     <section className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Trending Products</h2>
+      <h2 className="animate-pulse text-2xl font-bold mb-4">
+        Trending Products
+      </h2>
       {isLoading && <p>Loading products...</p>}
       {error && <p className="text-red-500">Failed to load products</p>}
       {!isLoading && !error && (

@@ -12,11 +12,11 @@ export const Navbar = () => {
 
   return (
     <nav className="sticky top-0 bg-white shadow-md z-10 p-4 flex justify-between items-center">
-      <Link href="/" className="text-2xl font-bold">
+      <Link href="/" className="animate-bounce text-2xl font-bold">
         Logo
       </Link>
-      <div className="hidden md:flex space-x-4">
-        <div className="relative group">
+      <div className="hidden font-bold md:flex space-x-50">
+        <div className=" relative group">
           <button className="hover:text-blue-600">Categories</button>
           <div className="absolute hidden group-hover:block bg-white shadow-lg p-4">
             <Link
@@ -33,7 +33,7 @@ export const Navbar = () => {
             </Link>
           </div>
         </div>
-        <Link href="/products" className="hover:text-blue-600">
+        <Link href="/products" className=" hover:text-blue-600">
           Products
         </Link>
         <Link href="/cart" className="hover:text-blue-600">
@@ -44,11 +44,6 @@ export const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center space-x-4">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="border rounded-md p-2 hidden md:block"
-        />
         <Button icon="search" />
         <Button icon="wishlist" />
         <Button icon="cart"></Button>
