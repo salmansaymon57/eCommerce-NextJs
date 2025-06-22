@@ -1,14 +1,14 @@
 // components/Navbar.tsx
 "use client";
-import { useState } from "react";
+// import { useState } from "react";
 import Link from "next/link";
 // import { FaSearch, FaHeart, FaShoppingCart } from "react-icons/fa";
 import { Button } from "./Button";
-import Drawer from "react-modern-drawer";
+// import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 bg-white shadow-md z-10 p-4 flex justify-between items-center">
@@ -20,10 +20,10 @@ export const Navbar = () => {
           <button className="hover:text-blue-600">Categories</button>
           <div className="absolute hidden group-hover:block bg-white shadow-lg p-4">
             <Link
-              href="/products?category=electronics"
+              href="/products?category=Footwear"
               className="block py-1 hover:text-blue-600"
             >
-              Electronics
+              Footwear
             </Link>
             <Link
               href="/products?category=clothing"
@@ -59,7 +59,7 @@ export const Navbar = () => {
         <Button icon="wishlist" />
         <Button icon="cart" />
       </div>
-      <button className="md:hidden" onClick={() => setIsOpen(true)}>
+      {/* <button className="md:hidden" onClick={() => setIsOpen(true)}>
         <span className="text-2xl">☰</span>
       </button>
       <Drawer open={isOpen} onClose={() => setIsOpen(false)} direction="right">
@@ -80,7 +80,7 @@ export const Navbar = () => {
             Dashboard
           </Link>
         </div>
-      </Drawer>
+      </Drawer> */}
     </nav>
   );
 };

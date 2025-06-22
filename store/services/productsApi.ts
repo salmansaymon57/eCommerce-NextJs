@@ -1,3 +1,4 @@
+// store/services/productsApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // Raw API response type based on Postman data
@@ -18,6 +19,7 @@ interface RawProduct {
 export interface Product {
   id: string;
   title: string;
+  description: string;
   image: string;
   price: number;
   discountPrice?: number;
@@ -25,6 +27,7 @@ export interface Product {
   variants: { size: string; color: string; stock: number }[];
   isSale?: boolean;
   isNew?: boolean;
+  category: string; // Added to support filtering
 }
 
 export const productsApi = createApi({
@@ -37,6 +40,7 @@ export const productsApi = createApi({
         response.map((item) => ({
           id: item.id,
           title: item.title,
+          description: item.description,
           image: item.images[0] || "/placeholder.jpg",
           price: item.price,
           discountPrice: item.discount_price,
@@ -44,6 +48,7 @@ export const productsApi = createApi({
           variants: item.variants,
           isSale: !!item.discount_price,
           isNew: item.tags.includes("new"),
+          category: item.category, // Added to map category
         })),
     }),
     getProductById: builder.query<Product, string>({
@@ -51,6 +56,7 @@ export const productsApi = createApi({
       transformResponse: (item: RawProduct) => ({
         id: item.id,
         title: item.title,
+        description: item.description,
         image: item.images[0] || "/placeholder.jpg",
         price: item.price,
         discountPrice: item.discount_price,
@@ -58,6 +64,7 @@ export const productsApi = createApi({
         variants: item.variants,
         isSale: !!item.discount_price,
         isNew: item.tags.includes("new"),
+        category: item.category, // Added to map category
       }),
     }),
   }),
