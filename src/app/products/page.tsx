@@ -29,8 +29,9 @@ export default function ProductsPage() {
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} {...product} name={product.title} />
             ))}
+               </Suspense>
           </div>
-            </Suspense>
+           
         )}
       </div>
     </ReduxProviderWrapper>
