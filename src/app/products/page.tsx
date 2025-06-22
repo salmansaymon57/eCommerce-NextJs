@@ -5,6 +5,7 @@ import { ProductCard } from "../../../components/ProductCard";
 import { ReduxProviderWrapper } from "../../../components/ReduxProviderWrapper";
 import { useSearchParams } from "next/navigation";
 import { Navbar } from "../../../components/Navbar";
+import { Suspense } from "react";
 
 export default function ProductsPage() {
   const { data: products = [], isLoading, error } = useGetProductsQuery();
@@ -24,10 +25,12 @@ export default function ProductsPage() {
         {error && <p className="text-red-500">Failed to load products</p>}
         {!isLoading && !error && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <Suspense>
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} {...product} name={product.title} />
             ))}
           </div>
+            </Suspense>
         )}
       </div>
     </ReduxProviderWrapper>
