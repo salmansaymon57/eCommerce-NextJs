@@ -59,28 +59,6 @@ export const Navbar = () => {
         <Button icon="wishlist" />
         <Button icon="cart" />
       </div>
-      {/* <button className="md:hidden" onClick={() => setIsOpen(true)}>
-        <span className="text-2xl">☰</span>
-      </button>
-      <Drawer open={isOpen} onClose={() => setIsOpen(false)} direction="right">
-        <div className="p-4">
-          <Link href="/products" className="block py-2">
-            Products
-          </Link>
-          <Link href="/products?category=electronics" className="block py-2">
-            Electronics
-          </Link>
-          <Link href="/products?category=clothing" className="block py-2">
-            Clothing
-          </Link>
-          <Link href="/cart" className="block py-2">
-            Cart
-          </Link>
-          <Link href="/dashboard" className="block py-2">
-            Dashboard
-          </Link>
-        </div>
-      </Drawer> */}
     </nav>
   );
 };
