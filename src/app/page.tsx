@@ -1,5 +1,7 @@
 // src/app/page.tsx
 "use client";
+
+import Link from "next/link";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
@@ -109,6 +111,21 @@ export default function Home() {
           <h2 className="animate-pulse text-2xl font-bold mb-4">
             Featured Categories
           </h2>
+          <div className=" grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Link href="/" className="bg-gray-200 p-4 text-center">
+              Electronics
+            </Link>
+
+            <Link href="/" className="bg-gray-200 p-4 text-center">
+              Clothing
+            </Link>
+            <Link href="/" className="bg-gray-200 p-4 text-center">
+              Home
+            </Link>
+            <Link href="/products" className="bg-gray-200 p-4 text-center">
+              Footwear
+            </Link>
+          </div>
          
         </section>
         <ClientSection />
