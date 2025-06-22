@@ -2,9 +2,9 @@
 "use client";
 // import { useState } from "react";
 import Link from "next/link";
-// import { FaSearch, FaHeart, FaShoppingCart } from "react-icons/fa";
+
 import { Button } from "./Button";
-// import Drawer from "react-modern-drawer";
+
 import "react-modern-drawer/dist/index.css";
 
 export const Navbar = () => {
@@ -57,7 +57,7 @@ export const Navbar = () => {
         />
         <Button icon="search" />
         <Button icon="wishlist" />
-        <Button icon="cart" />
+        <Button icon="cart"></Button>
       </div>
     </nav>
   );

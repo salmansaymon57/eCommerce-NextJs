@@ -173,12 +173,14 @@ export default function Home() {
                   />
                   <span>Email : </span>
                   <Input
+                    type="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <span>Password : </span>
                   <Input
+                    type="password"
                     name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -191,12 +193,14 @@ export default function Home() {
                 <div>
                   <span>Email : </span>
                   <Input
+                    type="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <span>Password : </span>
                   <Input
+                    type="password"
                     name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

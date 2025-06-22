@@ -1,73 +1,63 @@
 // components/Input.tsx
-"use client";
-import { ChangeEvent } from "react";
+import React from "react";
 
-type InputProps = {
-  type?: "text" | "select" | "checkbox" | "radio";
+interface BaseInputProps {
+  type: string;
   name: string;
-  value?: string | string[];
-  options?: string[]; // For select
-  error?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-};
+  placeholder?: string;
+  className?: string;
+}
+
+interface ControlledInputProps extends BaseInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface UncontrolledInputProps extends BaseInputProps {
+  value?: never; // Prevent value when uncontrolled
+  onChange?: never; // Prevent onChange when uncontrolled
+  defaultValue?: string; // Allow defaultValue for uncontrolled
+}
+
+type InputProps = ControlledInputProps | UncontrolledInputProps;
 
 export const Input = ({
-  type = "text",
+  type,
   name,
+  placeholder,
   value,
-  options,
-  error,
   onChange,
+
+  className = "",
 }: InputProps) => {
-  const baseStyles =
-    "border rounded-md p-2 focus:ring-2 focus:ring-blue-500 outline-none";
-  const errorStyles = error ? "border-red-500" : "border-gray-300";
-
-  if (type === "select") {
-    return (
-      <div className="mb-4">
-        <select
-          name={name}
-          value={value}
-          onChange={onChange}
-          className={`${baseStyles} ${errorStyles} w-full`}
-        >
-          {options?.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-      </div>
+  // Ensure the input is not read-only if value is provided without onChange
+  if (value && !onChange) {
+    console.warn(
+      `Input with name "${name}" has a value prop but no onChange handler. Using defaultValue instead.`
     );
-  }
-
-  if (type === "checkbox" || type === "radio") {
     return (
-      <div className="flex items-center mb-2">
+      <div className={`mb-4 ${className}`}>
         <input
           type={type}
           name={name}
-          value={value}
-          onChange={onChange}
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+          placeholder={placeholder}
+          defaultValue={value} // Fallback to defaultValue
+          className="w-full p-2 border rounded"
         />
-        <label className="ml-2">{name}</label>
       </div>
     );
   }
 
   return (
-    <div className="mb-4">
+    <div className={`mb-4 ${className}`}>
       <input
-        type="text"
+        type={type}
         name={name}
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className={`${baseStyles} ${errorStyles} w-full`}
+        className="w-full p-2 border rounded"
       />
-      {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>
   );
 };
