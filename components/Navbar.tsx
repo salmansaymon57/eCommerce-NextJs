@@ -1,14 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // components/Navbar.tsx
 "use client";
-// import { useState } from "react";
 import Link from "next/link";
-
-import { Button } from "./Button";
+import { useSelector } from "react-redux";
+import { FaCartArrowDown as Cart } from "react-icons/fa";
 
 import "react-modern-drawer/dist/index.css";
 
 export const Navbar = () => {
-  // const [isOpen, setIsOpen] = useState(false);
+  const cartItems = useSelector((state: any) => state.cart.items); // Adjust type based on your RootState
+  const totalCartCount = cartItems.reduce(
+    (sum: number, item: any) => sum + item.quantity,
+    0
+  );
 
   return (
     <nav className="sticky top-0 bg-white shadow-md z-10 p-4 flex justify-between items-center">
@@ -44,9 +48,16 @@ export const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center space-x-4">
-        <Button icon="search" />
-        <Button icon="wishlist" />
-        <Button icon="cart"></Button>
+        <div className="relative">
+          <Link href="/cart" className="flex items-center">
+            <Cart size={30} />
+            {totalCartCount > 0 && (
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-2 -mr-2">
+                {totalCartCount}
+              </span>
+            )}
+          </Link>
+        </div>
       </div>
     </nav>
   );

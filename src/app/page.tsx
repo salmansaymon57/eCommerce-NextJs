@@ -30,6 +30,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [address, setAddress] = useState(""); // Added state for address
   const [signUp] = useSignUpMutation();
   const { data: user, refetch: login } = useLoginQuery(
     { email, password },
@@ -40,15 +41,16 @@ export default function Home() {
 
   const handleSignUp = async () => {
     try {
-      await signUp({ email, password, name }).unwrap();
+      await signUp({ email, password, name, address }).unwrap(); // Added address to signUp call
       alert("Sign-up successful! Please log in.");
       setIsSignUp(false);
       setEmail("");
       setPassword("");
       setName("");
+      setAddress(""); // Clear address field
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      alert("Sign-up failed. Email may already exist.");
+      alert("Sign-up failed. Email may already exist or address is invalid.");
     }
   };
 
@@ -180,6 +182,13 @@ export default function Home() {
                     name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span>Address : </span>
+                  <Input
+                    type="text"
+                    name="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
                   <Button variant="primary" onClick={handleSignUp}>
                     Sign Up

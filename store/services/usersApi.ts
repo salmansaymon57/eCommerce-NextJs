@@ -6,6 +6,9 @@ interface User {
   email: string;
   password: string;
   name: string;
+  address?: string; // Added address to User type
+
+  
   orders: { id: string; items: { productId: string; quantity: number }[]; total: number }[];
 }
 
@@ -18,6 +21,7 @@ interface SignUpRequest {
   email: string;
   password: string;
   name: string;
+  address?: string;
 }
 
 export const usersApi = createApi({

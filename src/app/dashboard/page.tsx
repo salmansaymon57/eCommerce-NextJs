@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/app/dashboard/page.tsx
 "use client";
 import { Navbar } from "../../../components/Navbar";
@@ -9,6 +10,7 @@ import { RootState } from "../../../store";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLoginQuery } from "../../../store/services/usersApi";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const { email, password, isAuthenticated } = useSelector(
@@ -18,11 +20,18 @@ const Dashboard = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const router = useRouter();
 
-  // Call useLoginQuery unconditionally with skip option
-  const { data: user } = useLoginQuery(
+  // Keep the existing useLoginQuery
+  const { data: user, refetch } = useLoginQuery(
     { email: email || "", password: password || "" },
     { skip: !isAuthenticated }
   );
+
+  // Refetch user data when authentication state changes
+  useEffect(() => {
+    if (isAuthenticated && email && password) {
+      refetch().then((result) => console.log("User data:", result.data));
+    }
+  }, [isAuthenticated, email, password, refetch]);
 
   const totalCartPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -31,7 +40,10 @@ const Dashboard = () => {
   const getProductName = (productId: string) =>
     products.find((p) => p.id === productId)?.title || "Unknown";
 
-  if (!user) {
+  // Check if user is an array and use the first element, fallback to null
+  const displayUser = Array.isArray(user) && user.length > 0 ? user[0] : null;
+
+  if (!displayUser) {
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
@@ -57,15 +69,18 @@ const Dashboard = () => {
           <section className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">User Information</h2>
             <p>
-              <strong>Name:</strong> {user.name}
+              <strong>Name:</strong> {displayUser.name || "Not available"}
             </p>
             <p>
-              <strong>Email:</strong> {user.email}
+              <strong>Email:</strong> {displayUser.email || "Not available"}
+            </p>
+            <p>
+              <strong>Address:</strong> {displayUser.address || "Not available"}
             </p>
           </section>
           <section className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Order History</h2>
-            {user.orders && user.orders.length > 0 ? (
+            {displayUser.orders && displayUser.orders.length > 0 ? (
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-gray-200">
@@ -75,8 +90,8 @@ const Dashboard = () => {
                     <th className="p-2 border">Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {user.orders.map((order) => (
+                {/* <tbody>
+                  {displayUser.orders.map((order) => (
                     <tr key={order.id} className="border">
                       <td className="p-2">{order.id}</td>
                       <td className="p-2">
@@ -96,7 +111,6 @@ const Dashboard = () => {
                                 (p) => p.id === item.productId
                               );
                               if (product) {
-                                // Add to cart logic (stub)
                                 console.log(
                                   `Reordered ${item.quantity}x ${product.title}`
                                 );
@@ -110,7 +124,7 @@ const Dashboard = () => {
                       </td>
                     </tr>
                   ))}
-                </tbody>
+                </tbody> */}
               </table>
             ) : (
               <p>No orders yet.</p>
