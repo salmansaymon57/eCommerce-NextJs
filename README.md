@@ -2,9 +2,9 @@
 
 This project is an e-commerce website built using Next.js, Redux Toolkit, and custom APIs to manage products and user authentication. Below is an overview of the development process, the APIs created, and their integration.
 
-## Task Overview
+## Overview
 
-The task involved creating a fully functional e-commerce website with the following key features:
+A fully functional e-commerce website with the following key features:
 - Product listing and categorization (e.g., dashboard, products page).
 - User authentication (login and sign-up functionality).
 - Cart and order management (integrated into the dashboard).
